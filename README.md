@@ -26,5 +26,9 @@ The API consists of three procedures:
 	GL3WglProc gl3w_get_proc_address(char const *proc);
 > Returns the address of an OpenGL extensions procedure.
 
+## GLFW Example
+
+clang glfw_test.c -lglfw -o glfw_test.bin  
+
 ## License
 [gl3w](https://github.com/skaslev/gl3w/blob/master/UNLICENSE) is in the public domain.
