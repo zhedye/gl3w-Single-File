@@ -218,7 +218,7 @@ static int gl3w__open_libgl (void) {
     if (!gl3w__libgl)
         return GL3W_ERROR_LIBRARY_OPEN;
 
-    wgl_get_proc_address = (GL3WglGetProcAddr)GetProcAddress(libgl, "wglGetProcAddress");
+    wgl_get_proc_address = (GL3WglGetProcAddr)GetProcAddress(gl3w__libgl, "wglGetProcAddress");
     return GL3W_OK;
 }
 static void gl3w__close_libgl(void) { FreeLibrary(gl3w__libgl); }
@@ -241,21 +241,21 @@ static void *gl3w__libgl;
 static int gl3w__open_libgl(void)
 {
 
-	libgl = dlopen("/System/Library/Frameworks/OpenGL.framework/OpenGL", RTLD_LAZY | RTLD_LOCAL);
-	if (!libgl)
+	gl3w__libgl = dlopen("/System/Library/Frameworks/OpenGL.framework/OpenGL", RTLD_LAZY | RTLD_LOCAL);
+	if (!gl3w__libgl)
 		return GL3W_ERROR_LIBRARY_OPEN;
 
 	return GL3W_OK;
 }
 
-static void gl3w__close_libgl(void) { dlclose(libgl); }
+static void gl3w__close_libgl(void) { dlclose(gl3w__libgl); }
 
 static GL3WglProc gl3w__get_proc(char const *proc)
 {
 
 	GL3WglProc res;
 
-	*(void **)(&res) = dlsym(libgl, proc);
+	*(void **)(&res) = dlsym(gl3w__libgl, proc);
 	return res;
 }
 
